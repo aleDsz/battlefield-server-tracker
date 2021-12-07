@@ -1,2 +1,1 @@
-# battlefield-server-tracker
-Battlefield's server settings tracker
+# Battlefield's Server Tracker
