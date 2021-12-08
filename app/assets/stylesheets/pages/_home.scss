@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+@mixin fullscreen {
+  height: 100vh;
+  width: 100vw;
+}
+
+$home-title-size: 8em;
+$home-center-top: calc(50vh - #{$home-title-size});
+
+.home-bg {
+  @include fullscreen();
+
+  font-family: "Bebas Neue", cursive;
+  overflow: hidden;
+
+  background: url(asset_path("bf4.jpg"));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+
+  .home-overlay {
+    @include fullscreen();
+
+    position: relative;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    backdrop-filter: blur(2px);
+    color: white;
+
+    .home-center {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: $home-center-top;
+    }
+
+    .home-title {
+      text-align: center;
+      display: block;
+      text-shadow: 1px 1px 10px rgba($color: #000000, $alpha: 0.8);
+      font-size: $home-title-size;
+      margin: 0 auto;
+    }
+  }
+}
