@@ -10,6 +10,7 @@ development: &default
 test:
   <<: *default
   database: bfst_test
+  url: <%= ENV['DATABASE_URL'] %>
 
 production:
   <<: *default
