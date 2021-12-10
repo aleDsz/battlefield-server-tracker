@@ -24,7 +24,7 @@ group :development, :test do
   gem 'fabrication', require: false
   gem 'faker'
   gem 'reek'
-  gem 'rspec-rails', '4.0.2'
+  gem 'rspec-rails', '5.0.2'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
