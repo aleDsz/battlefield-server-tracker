@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
 # ruby version
 ruby '3.0.1'
@@ -19,6 +18,8 @@ gem 'tzinfo-data', platforms: %i(mingw mswin x64_mingw jruby)
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
+  gem 'brakeman'
+  gem 'bundler-audit'
   gem 'byebug', platforms: %i(mri mingw x64_mingw)
   gem 'fabrication', require: false
   gem 'faker'
