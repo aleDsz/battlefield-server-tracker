@@ -68,6 +68,17 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: servers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.servers (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    game_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: games id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -99,12 +110,28 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: servers servers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.servers
+    ADD CONSTRAINT servers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_servers_on_game_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_servers_on_game_id ON public.servers USING btree (game_id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20211208161326');
+('20211208161326'),
+('20211210163239');
 
 
