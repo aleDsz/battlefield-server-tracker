@@ -6,6 +6,7 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../config/environment', __dir__)
 require 'codecov'
 require 'byebug'
+require 'dry/monads'
 require 'rspec/rails'
 require 'valid_attribute'
 require 'rspec/active_model/mocks'

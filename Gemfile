@@ -9,6 +9,8 @@ ruby '3.0.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'connection_pool', '~> 2.2'
+gem 'dry-monads', '~> 1.4'
+gem 'faraday'
 gem 'pg', '~> 1.2'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
