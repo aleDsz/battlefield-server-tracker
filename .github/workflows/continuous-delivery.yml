@@ -1,0 +1,66 @@
+name: continuous delivery
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/bfst_test
+
+    name: test
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [3.0.0]
+
+    services:
+      db:
+        image: postgres:13.1
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: setup ruby and install gems
+        uses: ruby/setup-ruby@v1.89.0
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: check vulnerabilities
+        run: |
+          bundle exec bundler-audit --update
+          bundle exec brakeman -q -w2
+
+      - name: lint and analyse code
+        run: |
+          bundle exec rubocop
+          bundle exec reek
+
+      - name: run tests and coverage
+        env:
+          SIMPLECOV: true
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+          bundle exec rspec
+
+      - name: publish to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "battlefield-server-tracker"
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
