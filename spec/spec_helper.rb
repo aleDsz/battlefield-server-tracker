@@ -1,18 +1,10 @@
 # frozen_string_literal: false
 
-if ENV['SIMPLECOV']
-  require 'simplecov'
-
-  SimpleCov.start do
-    add_filter 'spec'
-    add_filter 'app/views'
-  end
-end
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] = 'test'
 
 require File.expand_path('../config/environment', __dir__)
+require 'codecov'
 require 'byebug'
 require 'rspec/rails'
 require 'valid_attribute'
@@ -22,6 +14,19 @@ require 'rspec/mocks'
 require 'shoulda-matchers'
 require 'faker'
 require 'fabrication'
+require 'simplecov'
+
+# Code coverage
+SimpleCov.start do
+  minimum_coverage 90
+  print_error_status
+  enable_coverage :branch
+  primary_coverage :branch
+
+  formatter SimpleCov::Formatter::SimpleFormatter
+
+  formatter SimpleCov::Formatter::Codecov if ENV['SIMPLECOV']
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

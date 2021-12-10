@@ -41,6 +41,7 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
+  gem 'codecov'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
