@@ -43,6 +43,7 @@ end
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include ValidAttribute::Method
+  config.include FactoryBot::Syntax::Methods
 
   # load action view for presenter tests
   config.include ActionView::TestCase::Behavior, file_path: %r{spec/presenters}
@@ -78,3 +79,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 end
+
+FactoryBot.find_definitions

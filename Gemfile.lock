@@ -105,6 +105,8 @@ GEM
       dry-core (~> 0.7)
     erubi (1.10.0)
     fabrication (2.23.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
     faker (2.19.0)
       i18n (>= 1.6, < 2)
     faraday (1.8.0)
@@ -333,6 +335,7 @@ DEPENDENCIES
   connection_pool (~> 2.2)
   dry-monads (~> 1.4)
   fabrication
+  factory_bot
   faker
   faraday
   letter_opener_web
