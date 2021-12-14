@@ -68,6 +68,53 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: server_details; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.server_details (
+    id bigint NOT NULL,
+    server_id uuid NOT NULL,
+    name character varying NOT NULL,
+    ip character varying NOT NULL,
+    port integer NOT NULL,
+    current_map character varying NOT NULL,
+    max_players integer NOT NULL,
+    current_players integer NOT NULL,
+    players_in_queue integer NOT NULL,
+    total_rounds integer NOT NULL,
+    rounds_played integer NOT NULL,
+    game_type character varying NOT NULL,
+    is_ranked boolean DEFAULT true NOT NULL,
+    has_punkbuster boolean DEFAULT true NOT NULL,
+    is_official_server boolean DEFAULT false NOT NULL,
+    country character varying NOT NULL,
+    battlelog_game_id character varying NOT NULL,
+    favorites character varying NOT NULL,
+    server_link character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: server_details_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.server_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: server_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.server_details_id_seq OWNED BY public.server_details.id;
+
+
+--
 -- Name: servers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -83,6 +130,13 @@ CREATE TABLE public.servers (
 --
 
 ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_id_seq'::regclass);
+
+
+--
+-- Name: server_details id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_details ALTER COLUMN id SET DEFAULT nextval('public.server_details_id_seq'::regclass);
 
 
 --
@@ -110,6 +164,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: server_details server_details_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_details
+    ADD CONSTRAINT server_details_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: servers servers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -125,6 +187,22 @@ CREATE INDEX index_servers_on_game_id ON public.servers USING btree (game_id);
 
 
 --
+-- Name: servers fk_rails_0c6fc59a85; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.servers
+    ADD CONSTRAINT fk_rails_0c6fc59a85 FOREIGN KEY (game_id) REFERENCES public.games(id);
+
+
+--
+-- Name: server_details fk_rails_f3f871a2ab; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_details
+    ADD CONSTRAINT fk_rails_f3f871a2ab FOREIGN KEY (server_id) REFERENCES public.servers(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -132,6 +210,8 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20211208161326'),
-('20211210163239');
+('20211210163239'),
+('20211213194903'),
+('20211213195410');
 
 

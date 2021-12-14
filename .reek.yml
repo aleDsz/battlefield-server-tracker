@@ -70,3 +70,4 @@ detectors:
 
 exclude_paths:
   - spec/integration/
+  - db/migrate/
