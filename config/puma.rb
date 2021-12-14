@@ -23,7 +23,7 @@ environment ENV.fetch('RAILS_ENV', 'development')
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers Integer(ENV.fetch('WEB_CONCURRENCY', '2'))
+workers Integer(ENV.fetch('WEB_CONCURRENCY', '1'))
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -39,4 +39,7 @@ on_worker_boot do
   ActiveSupport.on_load(:active_record) do
     ActiveRecord::Base.establish_connection
   end
+
+  ActiveJob::Base.logger = Logger.new(IO::NULL)
+  ScheduleGameServerSearchJob.perform_now(scheduled_to: DateTime.now, first_run: true)
 end
