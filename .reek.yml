@@ -59,11 +59,14 @@ detectors:
 
   ControlParameter:
     exclude:
-      - "/Worker/"
+      - "/Job/"
 
   LongParameterList:
     exclude:
-      - "/Worker/"
+      - "/Job/"
+
+  BooleanParameter:
+    enabled: false
 
 exclude_paths:
   - spec/integration/
