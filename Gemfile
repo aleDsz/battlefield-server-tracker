@@ -8,6 +8,7 @@ ruby '3.0.0'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'caze'
 gem 'connection_pool', '~> 2.2'
 gem 'dry-monads', '~> 1.4'
 gem 'faraday'

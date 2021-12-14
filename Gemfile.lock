@@ -88,6 +88,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    caze (0.2.2)
+      activesupport (>= 3)
     childprocess (4.1.0)
     codecov (0.6.0)
       simplecov (>= 0.15, < 0.22)
@@ -331,6 +333,7 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara (>= 3.26)
+  caze
   codecov
   connection_pool (~> 2.2)
   dry-monads (~> 1.4)
