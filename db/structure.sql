@@ -115,6 +115,61 @@ ALTER SEQUENCE public.server_details_id_seq OWNED BY public.server_details.id;
 
 
 --
+-- Name: server_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.server_settings (
+    id bigint NOT NULL,
+    server_detail_id integer NOT NULL,
+    show_minimap character varying DEFAULT 'off'::character varying NOT NULL,
+    minimap_spotting character varying DEFAULT 'off'::character varying NOT NULL,
+    nametags character varying DEFAULT 'off'::character varying NOT NULL,
+    hud character varying DEFAULT 'off'::character varying NOT NULL,
+    third_person_spotting character varying DEFAULT 'off'::character varying NOT NULL,
+    aim_assit_slowdown character varying DEFAULT 'off'::character varying NOT NULL,
+    friendly_fire character varying DEFAULT 'off'::character varying NOT NULL,
+    kill_cam character varying DEFAULT 'off'::character varying NOT NULL,
+    only_squad_leader_spawn character varying DEFAULT 'off'::character varying NOT NULL,
+    aim_assit_auto_rotation character varying DEFAULT 'off'::character varying NOT NULL,
+    disable_team_balancer character varying DEFAULT 'off'::character varying NOT NULL,
+    regenerate_health character varying DEFAULT 'off'::character varying NOT NULL,
+    vehicle_third_person_camera character varying DEFAULT 'off'::character varying NOT NULL,
+    reload_full_mags character varying DEFAULT 'off'::character varying NOT NULL,
+    vehicle_respawn_time character varying DEFAULT '1.0'::character varying NOT NULL,
+    round_time_limit character varying DEFAULT '1.0'::character varying NOT NULL,
+    bullet_damage character varying DEFAULT '1.0'::character varying NOT NULL,
+    ticket_count character varying DEFAULT '1.0'::character varying NOT NULL,
+    respawn_time character varying DEFAULT '1.0'::character varying NOT NULL,
+    player_health character varying DEFAULT '1.0'::character varying NOT NULL,
+    team_ticket_count character varying DEFAULT '1.0'::character varying NOT NULL,
+    teammate_kills_before_kick character varying DEFAULT '1.0'::character varying NOT NULL,
+    ban_player_after_kicks character varying DEFAULT '1.0'::character varying NOT NULL,
+    kick_player_after_seconds character varying DEFAULT '1.0'::character varying NOT NULL,
+    player_man_down character varying DEFAULT '1.0'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: server_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.server_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: server_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.server_settings_id_seq OWNED BY public.server_settings.id;
+
+
+--
 -- Name: servers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -137,6 +192,13 @@ ALTER TABLE ONLY public.games ALTER COLUMN id SET DEFAULT nextval('public.games_
 --
 
 ALTER TABLE ONLY public.server_details ALTER COLUMN id SET DEFAULT nextval('public.server_details_id_seq'::regclass);
+
+
+--
+-- Name: server_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_settings ALTER COLUMN id SET DEFAULT nextval('public.server_settings_id_seq'::regclass);
 
 
 --
@@ -172,6 +234,14 @@ ALTER TABLE ONLY public.server_details
 
 
 --
+-- Name: server_settings server_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_settings
+    ADD CONSTRAINT server_settings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: servers servers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -195,6 +265,14 @@ ALTER TABLE ONLY public.servers
 
 
 --
+-- Name: server_settings fk_rails_6aa801fc05; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.server_settings
+    ADD CONSTRAINT fk_rails_6aa801fc05 FOREIGN KEY (server_detail_id) REFERENCES public.server_details(id);
+
+
+--
 -- Name: server_details fk_rails_f3f871a2ab; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -212,6 +290,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211208161326'),
 ('20211210163239'),
 ('20211213194903'),
-('20211213195410');
+('20211213195410'),
+('20211214014316');
 
 
