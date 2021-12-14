@@ -26,6 +26,7 @@ class SearchGameServersJob < ApplicationJob
       next if Server.exists?(bflist_server['guid'])
 
       Server.create!(id: bflist_server['guid'], game_id: game.id)
+      PersistServerDetailsJob.perform_later(bflist_server, game)
     end
 
     SearchGameServersJob.perform_later(game, page + 1)

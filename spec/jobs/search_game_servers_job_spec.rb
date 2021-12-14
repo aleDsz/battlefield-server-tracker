@@ -27,6 +27,10 @@ RSpec.describe SearchGameServersJob, type: :job do
         expect(described_class)
           .to receive(:perform_later)
           .with(game, 2)
+
+        expect(PersistServerDetailsJob)
+          .to receive(:perform_later)
+          .with(server, game)
       end
 
       it 'creates server and schedule the job for the next page' do
