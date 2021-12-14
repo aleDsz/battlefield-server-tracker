@@ -51,7 +51,7 @@ RSpec.describe PersistServerDetailsJob, type: :job do
           }
         end
 
-        it 'persist the server details into database' do
+        it 'fails to get the server from GameTools API' do
           expect(Faraday)
             .to receive(:get)
             .with("https://api.gametools.network/#{game.name}/servers/", params)
@@ -61,7 +61,7 @@ RSpec.describe PersistServerDetailsJob, type: :job do
             .not_to change(ServerDetail, :count)
         end
 
-        it 'persist the server details into database' do
+        it 'fails to get the server details from GameTools API' do
           expect(Faraday)
             .to receive(:get)
             .with("https://api.gametools.network/#{game.name}/servers/", params)

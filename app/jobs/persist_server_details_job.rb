@@ -4,7 +4,6 @@
 # from it to track 'em
 class PersistServerDetailsJob < ApplicationJob
   include Dry::Monads[:result]
-
   queue_as :default
 
   def perform(bflist_server, game)
@@ -48,31 +47,13 @@ class PersistServerDetailsJob < ApplicationJob
   end
 
   def persist_details!
-    ServerDetail.create!(attrs)
+    PersistServerDetails.persist_for_bf4(
+      body: body,
+      game: game,
+      server: server,
+      server_details: server_details
+    )
 
     Success()
-  end
-
-  def attrs # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-    {
-      server_id: body['guid'],
-      name: body['name'],
-      ip: body['ip'],
-      port: body['port'],
-      current_map: body['mapLabel'],
-      max_players: body['maxPlayers'],
-      current_players: body['numPlayers'],
-      players_in_queue: server['inQue'],
-      total_rounds: body['roundsTotal'],
-      rounds_played: body['roundsPlayed'],
-      game_type: server['mode'],
-      is_ranked: body['ranked'],
-      has_punkbuster: body['punkbuster'],
-      is_official_server: server['official'],
-      country: body['country'],
-      battlelog_game_id: server['gameId'],
-      favorites: server_details['favorites'],
-      server_link: server['serverLink']
-    }
   end
 end
