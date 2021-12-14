@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include ValidAttribute::Method
   config.include FactoryBot::Syntax::Methods
+  config.include ActiveJob::TestHelper
 
   # load action view for presenter tests
   config.include ActionView::TestCase::Behavior, file_path: %r{spec/presenters}
@@ -52,7 +53,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   # Shows the top 10 slowest tests
-  config.profile_examples = true
+  config.profile_examples = false
 
   # config.include ValidAttribute::Method
   # ## Mock Framework
@@ -78,6 +79,15 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  # Runs before job spec type
+  config.before :all do
+    ActiveJob::Base.queue_adapter = :test
+  end
+
+  config.after :all do
+    clear_enqueued_jobs
+  end
 end
 
 FactoryBot.find_definitions
